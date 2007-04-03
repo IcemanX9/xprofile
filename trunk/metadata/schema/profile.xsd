@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XML Spy v4.3 U (http://www.xmlspy.com) by Anirban Basu (School of Engineering) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="profile">
+		<xs:annotation>
+			<xs:documentation>Root element of the CV</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="personalInformation">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="name">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="prefix" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Prefix to the name, e.g., Mr, Dr, Sir, Prof, etc.</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string"/>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="givenName">
+											<xs:annotation>
+												<xs:documentation>Given or first name</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string"/>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="middleName" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Middle name</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="familyName" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Family or last name</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="maidenName" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Family name before marriage, if different from current family name</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="suffix" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Suffix to the name, such as Jr. It can include qualifications, such as BE, PhD, CEng, FIMechE, etc.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="displayName" type="xs:string" use="optional">
+										<xs:annotation>
+											<xs:documentation>If middle names are present then display name may be just given name and family name or may contain a certain middle name. It should not contain any of the prefixes or suffixes.</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="maritalStatus">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="Single"/>
+										<xs:enumeration value="Married"/>
+										<xs:enumeration value="Divorced"/>
+										<xs:enumeration value="Widowed"/>
+										<xs:enumeration value="Separated"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="dateOfBirth" type="xs:date"/>
+							<xs:element name="nationality" type="xs:string" maxOccurs="unbounded"/>
+							<xs:element name="gender">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="Male"/>
+										<xs:enumeration value="Female"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="contactInformation">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="address" type="addressType" minOccurs="0"/>
+										<xs:element name="email" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="telephone" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="fax" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="websiteURI" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+									<xs:attribute name="type" use="required">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="home"/>
+												<xs:enumeration value="work"/>
+												<xs:enumeration value="other"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="image" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Should this contain width, height, etc. as attributes?</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="imageWidth" type="xs:int"/>
+										<xs:element name="imageHeight" type="xs:int"/>
+										<xs:element name="dimensionUnit" type="xs:string"/>
+										<xs:element name="dpi" type="xs:int" minOccurs="0"/>
+										<xs:element name="mimeType" type="xs:string" minOccurs="0"/>
+										<xs:element name="byteData" type="xs:base64Binary"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="education" minOccurs="0" maxOccurs="10">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="startDate"/>
+							<xs:element ref="endDate" minOccurs="0"/>
+							<xs:element name="awardingInstitution">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="name" type="xs:string"/>
+										<xs:element name="department" type="xs:string" minOccurs="0"/>
+										<xs:element name="school" type="xs:string" minOccurs="0"/>
+										<xs:element name="address" type="addressType" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="qualification">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="type" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>e.g., BA, MA, MSc, PhD, ScD</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="name" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>e.g., Computer Science and Artificial Intelligence</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element ref="grade"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="course" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="name" type="xs:string"/>
+										<xs:element name="level" type="xs:string" minOccurs="0"/>
+										<xs:element ref="grade"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="thesis" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="title" type="xs:string"/>
+										<xs:element name="description" type="xs:string"/>
+										<xs:element ref="grade" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="workExperience" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="lastModified" type="xs:dateTime" use="required" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Last modified date-time stamp</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="sourceURI" type="xs:anyURI" use="optional" form="qualified">
+				<xs:annotation>
+					<xs:documentation>URI to the source that contains the XML CV</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="addressType">
+		<xs:sequence>
+			<xs:element name="addressLine" type="xs:string" maxOccurs="5"/>
+			<xs:element name="city" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>city or town</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="district" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>district or county or prefecture</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="state" type="xs:string" minOccurs="0"/>
+			<xs:element name="postalCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="country" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="grade">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="type" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="obtained"/>
+								<xs:enumeration value="expected"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="startDate" type="xs:date"/>
+	<xs:element name="endDate" type="xs:date"/>
+</xs:schema>
